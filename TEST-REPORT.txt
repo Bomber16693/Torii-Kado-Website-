@@ -1,0 +1,33 @@
+Torii Kado Website v1.2 — Layout and Slider Test Report
+=======================================================
+
+Completed fixes
+---------------
+- Fixed workflow step descriptions that were being placed in the 40 px number column.
+- Expanded the desktop content container to 1680 px maximum width.
+- Added minimum and maximum grid sizing to prevent collapsed columns.
+- Replaced the slider images with matching 1350 × 1920 full-page files.
+- Changed comparison image rendering from object-fit: cover to object-fit: contain.
+- Changed the translated overlay from a resizing container to a full-size clipped layer.
+- Corrected the slider direction: Japanese is on the left and English is on the right.
+
+Automated checks
+----------------
+- JavaScript syntax: passed.
+- Missing local references: 0.
+- Horizontal overflow at 1920 × 1080: 0 px.
+- Horizontal overflow at 2880 × 1600: 0 px.
+- Horizontal overflow at 1366 × 900: 0 px.
+- Horizontal overflow at 390 × 844: 0 px.
+- Workflow text width at 1920 px: 580 px per description.
+- Slider source dimensions: 1350 × 1920.
+- Slider translated dimensions: 1350 × 1920.
+- Slider display mode: contain on both layers.
+- Slider clip interaction: passed.
+- Demo page selection and view controls: passed.
+
+Rendered QA files
+-----------------
+- WEBSITE-PREVIEW.png
+- QA-WORKFLOW-1920.png
+- QA-SLIDER-1920.png
