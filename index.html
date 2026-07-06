@@ -1,300 +1,316 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Torii Kado is a local AI manga translator for Windows with advanced OCR, story-aware translation, correction tools, page self-checks and export workflows.">
-  <meta name="theme-color" content="#070b14">
-  <meta property="og:title" content="Torii Kado — Translate Manga the Right Way">
-  <meta property="og:description" content="Offline manga OCR, story-aware local AI translation, correction tools and export in one Windows app.">
-  <meta property="og:image" content="assets/images/app-main.webp">
-  <title>Torii Kado — Offline AI Manga Translator</title>
-  <link rel="icon" href="assets/images/logo.webp">
-  <link rel="stylesheet" href="assets/styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Torii Kado is a private, local-first manga translation, correction and export workstation for Windows 10 and 11.">
+<meta name="theme-color" content="#0d1117">
+<meta property="og:title" content="Torii Kado — Local AI Manga Translation">
+<meta property="og:description" content="Import complete manga volumes, translate with story context, correct lettering, run page checks and export ZIP/PDF — locally.">
+<meta property="og:image" content="assets/screenshots/02-project-preview.png">
+<title>Torii Kado — Local AI Manga Translation</title>
+<link rel="icon" href="assets/app-icon.ico">
+<style>
+:root{
+  --ink:#0d1117; --paper:#f0f6fc; --paper2:#ffffff; --red:#1f6feb; --red2:#243347;
+  --blue:#388bfd; --cyan:#58a6ff; --muted:#8b949e; --line:#26303b; --panel:#111720;
+  --shadow:0 24px 60px rgba(0,0,0,.28); --radius:18px; --max:1500px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--ink);overflow-x:hidden}
+body{margin:0;color:#eceef5;background:
+  radial-gradient(circle at 20% 10%,rgba(31,111,235,.15),transparent 25rem),
+  radial-gradient(circle at 85% 25%,rgba(88,166,255,.09),transparent 28rem),
+  #0d1117;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.035;z-index:50;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit}
+button{cursor:pointer}
+img{max-width:100%;display:block}
+.skip{position:fixed;left:10px;top:-80px;background:#fff;color:#000;padding:10px 14px;z-index:999;border:3px solid #000}.skip:focus{top:10px}
+.wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+.site-header{position:sticky;top:0;z-index:40;border-bottom:1px solid rgba(255,255,255,.10);background:rgba(13,17,23,.92);backdrop-filter:blur(18px)}
+.header-inner{height:76px;display:flex;align-items:center;gap:26px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:950;letter-spacing:-.03em;white-space:nowrap}.brand img{width:48px;height:48px;border-radius:10px;box-shadow:0 0 0 2px #fff,0 0 0 5px #212a35}.brand small{display:block;color:#8e95a8;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+.nav{margin-left:auto;display:flex;align-items:center;gap:3px}.nav a{padding:10px 12px;border-radius:9px;color:#c8cbd5;font-size:14px;font-weight:750}.nav a:hover,.nav a:focus-visible{background:#243347;color:#fff}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 18px;border-radius:10px;border:2px solid rgba(255,255,255,.16);background:#212a35;color:white;font-weight:900;box-shadow:0 8px 20px rgba(0,0,0,.18);transition:.18s transform,.18s background,.18s border-color}.btn:hover{transform:translateY(-2px);border-color:#fff}.btn.primary{background:var(--red);border-color:#58a6ff;color:#fff}.btn.light{background:#fff;color:#0b0d12;border-color:#fff}.btn.small{min-height:40px;padding:0 14px;font-size:13px}.btn.ghost{background:transparent}
+.menu-btn{display:none;margin-left:auto;width:44px;height:44px;border-radius:9px;border:1px solid #343948;background:#212a35;color:white}
+.section{padding:105px 0;position:relative}.eyebrow{display:inline-flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.17em;font-weight:950;font-size:12px;color:#58a6ff}.eyebrow::before{content:"";width:32px;height:4px;background:var(--red);transform:skewX(-20deg)}
+h1,h2,h3{line-height:.98;margin:0;letter-spacing:-.045em}h1{font-size:clamp(52px,7vw,112px);font-weight:1000;max-width:930px}h2{font-size:clamp(42px,5.2vw,78px);font-weight:1000}h3{font-size:26px;font-weight:950}.lead{font-size:clamp(18px,2vw,24px);color:#b9becb;max-width:790px;line-height:1.55}.red{color:var(--red)}
+.hero{padding:78px 0 85px;min-height:calc(100vh - 76px);display:grid;align-items:center}.hero-grid{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(500px,.98fr);gap:64px;align-items:center}.hero-copy p{margin:25px 0 32px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero-note{margin-top:18px;color:#858c9d;font-size:13px}.hero-stats{margin-top:38px;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #2a2e39;border-bottom:1px solid #2a2e39}.hero-stat{padding:17px 15px;border-right:1px solid #2a2e39}.hero-stat:last-child{border-right:0}.hero-stat b{display:block;font-size:24px;color:white}.hero-stat span{font-size:12px;color:#9298a7;text-transform:uppercase;letter-spacing:.08em}
+.hero-art{position:relative;min-height:650px}.app-frame{position:absolute;inset:55px 0 38px 50px;border:3px solid #050608;border-radius:18px;overflow:hidden;background:#10131b;box-shadow:0 30px 90px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.14);transform:rotate(1.4deg)}.app-frame::before{content:"TORII KADO / LIVE WORKSPACE";position:absolute;left:18px;top:14px;background:#fff;color:#000;padding:5px 10px;border:2px solid #000;font-size:11px;font-weight:1000;z-index:2;transform:rotate(-2deg)}.app-frame img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero-page{position:absolute;width:210px;border:4px solid #050608;background:white;box-shadow:0 18px 45px rgba(0,0,0,.45);overflow:hidden}.hero-page img{width:100%;height:100%;object-fit:cover}.hero-page.a{right:-48px;top:0;height:300px;transform:rotate(7deg)}.hero-page.b{left:-24px;bottom:0;height:285px;transform:rotate(-7deg)}
+.speech{position:absolute;background:#fff;color:#08090c;border:4px solid #000;border-radius:50%;padding:25px 24px;font-weight:1000;text-align:center;line-height:1.05;box-shadow:10px 12px 0 rgba(31,111,235,.92)}.speech::after{content:"";position:absolute;width:38px;height:38px;background:#fff;border-right:4px solid #000;border-bottom:4px solid #000;transform:rotate(35deg);bottom:-13px;left:35px}.speech.hero-bubble{right:22px;bottom:20px;width:218px;font-size:20px;transform:rotate(-4deg)}
+.sfx{position:absolute;font-family:Impact,Arial Black,sans-serif;font-size:75px;font-style:italic;letter-spacing:-.08em;color:#fff;-webkit-text-stroke:3px #000;text-shadow:8px 8px 0 var(--red);transform:rotate(-9deg);z-index:3}.sfx.hero-sfx{left:5px;top:5px}.slash{position:absolute;height:3px;background:#fff;opacity:.15;transform:rotate(-15deg);width:70%;right:-10%;top:45%}
+.manga-rule{height:40px;background:linear-gradient(165deg,transparent 47%,#fff 48%,#fff 52%,transparent 53%),repeating-linear-gradient(90deg,transparent 0 70px,rgba(255,255,255,.12) 72px 74px);opacity:.5}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:48px}.section-head p{max-width:620px;color:#aeb3c0;margin:0}
+.paper-section{color:#11131a;background:var(--paper);overflow:hidden}.paper-section::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#222 1px,transparent 1.3px);background-size:6px 6px;opacity:.045;pointer-events:none}.paper-section .eyebrow{color:var(--red2)}.paper-section .section-head p{color:#555b67}
+.demo-shell{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(320px,.7fr);gap:34px;align-items:start}.demo-stage{background:#111;border:5px solid #111;padding:12px;box-shadow:14px 16px 0 var(--red)}.demo-toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.chip{border:2px solid #20232d;background:#fff;color:#12131a;border-radius:999px;padding:8px 13px;font-weight:900;font-size:13px}.chip.active{background:var(--red);border-color:#000;color:#fff}.view-chip{background:#212a35;color:#fff;border-color:#34404d}.view-chip.active{background:#fff;color:#000}
+.compare{position:relative;aspect-ratio:1024/870;overflow:hidden;background:#e7e5de;touch-action:none;user-select:none}.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#fff}.compare .after-layer{clip-path:inset(0 0 0 50%)}.compare-line{position:absolute;top:0;bottom:0;left:50%;width:4px;background:var(--red);transform:translateX(-50%);filter:drop-shadow(0 0 3px #000);z-index:3}.compare-handle{position:absolute;left:50%;top:50%;width:54px;height:54px;border-radius:50%;background:var(--red);border:4px solid #fff;transform:translate(-50%,-50%);z-index:4;display:grid;place-items:center;color:white;font-weight:1000;box-shadow:0 4px 18px rgba(0,0,0,.4)}.compare-label{position:absolute;top:12px;padding:6px 10px;background:#111720;color:#fff;font-size:11px;font-weight:950;z-index:5;border:2px solid white}.compare-label.left{left:12px}.compare-label.right{right:12px;background:var(--red)}.compare-range{width:100%;margin-top:12px;accent-color:var(--red)}
+.demo-info{background:#fff;border:5px solid #111;box-shadow:12px 12px 0 #111;padding:28px}.demo-info h3{font-size:34px}.demo-info p{color:#535965}.scan-list{margin:24px 0 0;display:grid;gap:12px}.scan-item{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:center;padding:12px;border:2px solid #111;background:#f5f1e7}.scan-item b{display:grid;place-items:center;width:42px;height:42px;background:#111;color:#fff;font-size:14px}.scan-item strong{display:block}.scan-item span{font-size:12px;color:#646976}.score{margin-top:20px;border-top:3px solid #111;padding-top:18px;display:flex;align-items:center;justify-content:space-between}.score b{font-size:38px;color:var(--red2)}
+.dark-grid{background:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:42px 42px}.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}.filter{padding:9px 14px;border-radius:8px;border:1px solid #34404d;background:#111720;color:#adb4c3;font-weight:850}.filter.active{background:#fff;color:#08090c;border-color:#fff}.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.feature{position:relative;min-height:235px;border:2px solid #34404d;background:#111720;padding:24px;overflow:hidden;transition:.2s transform,.2s border-color}.feature:hover{transform:translateY(-5px);border-color:#fff}.feature::after{content:"";position:absolute;width:140px;height:140px;border-radius:50%;right:-45px;bottom:-45px;background:radial-gradient(circle,#fff 0 1px,transparent 1.5px);background-size:7px 7px;opacity:.08}.feature .num{font-family:Impact,Arial Black,sans-serif;font-size:54px;color:#1a2635;position:absolute;right:15px;top:4px}.feature h3{font-size:23px;margin:18px 0 10px}.feature p{color:#9299aa;font-size:14px}.feature .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#58a6ff;font-weight:950}.feature button{position:absolute;inset:0;opacity:0;width:100%;height:100%;border:0}.feature[hidden]{display:none}
+.tour-layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px}.tour-tabs{display:grid;align-content:start;gap:8px}.tour-tab{text-align:left;padding:16px;border:2px solid #34404d;background:#111720;color:#b7bdca;border-radius:9px;font-weight:900}.tour-tab.active{background:var(--red);color:white;border-color:#58a6ff;transform:translateX(8px)}.tour-frame{border:3px solid #34404d;border-radius:14px;overflow:hidden;background:#0b1016;box-shadow:var(--shadow)}.tour-frame img{width:100%;aspect-ratio:1600/980;object-fit:cover}.tour-caption{display:flex;justify-content:space-between;gap:20px;padding:18px 20px;background:#111720}.tour-caption p{margin:0;color:#a5abb9}.tour-caption b{white-space:nowrap;color:#fff}
+.workflow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;position:relative}.workflow::before{content:"";position:absolute;height:5px;background:var(--red);left:8%;right:8%;top:44px;z-index:0}.step{position:relative;z-index:1;border:4px solid #111;background:#fff;min-height:270px;padding:22px 18px;box-shadow:8px 9px 0 rgba(17,17,17,.9);transform:rotate(var(--r,0deg))}.step:nth-child(2n){--r:1deg}.step:nth-child(2n+1){--r:-.7deg}.step .step-no{width:55px;height:55px;border-radius:50%;display:grid;place-items:center;background:#111;color:white;border:5px solid var(--paper);box-shadow:0 0 0 3px #111;font-size:22px;font-weight:1000}.step h3{font-size:24px;margin:30px 0 12px}.step p{color:#555b67;font-size:14px}.step .status{margin-top:18px;font-size:11px;font-weight:950;text-transform:uppercase;letter-spacing:.09em;color:#969aa3}.step.done .status{color:#238636}.step.active{background:#eaf2ff;border-color:var(--red2);transform:translateY(-10px) rotate(var(--r,0deg))}.step.active .step-no{background:var(--red)}.workflow-actions{display:flex;justify-content:center;margin-top:40px}.progress-track{width:min(700px,100%);height:14px;border:3px solid #111;background:#fff;margin:25px auto 0}.progress-fill{height:100%;width:0;background:var(--red);transition:width .5s}
+.lab-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px}.lab-control{border:2px solid #34404d;background:#111720;padding:26px}.lab-control label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#8d94a5;font-weight:950;margin:20px 0 8px}.lab-control select{width:100%;background:#0b1016;color:#fff;border:1px solid #34404d;border-radius:8px;padding:13px}.profile-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.profile-btn{border:1px solid #34404d;background:#212a35;color:#bdc3cf;padding:13px;border-radius:8px;font-weight:850}.profile-btn.active{background:var(--red);color:#fff;border-color:#58a6ff}.lab-output{border:3px solid #34404d;background:#0b1016;padding:25px;position:relative}.lab-output::after{content:"QUALITY PROFILE";position:absolute;right:16px;top:12px;color:#243347;font-family:Impact;font-size:38px;letter-spacing:.04em}.lab-output h3{font-size:36px;position:relative;z-index:1}.meter{margin-top:23px;display:grid;gap:13px}.meter-row{display:grid;grid-template-columns:165px 1fr 48px;align-items:center;gap:12px}.meter-row span{font-size:13px;color:#aeb4c2}.bar{height:10px;background:#212a35;border-radius:999px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--red),#58a6ff);width:50%;transition:width .3s}.profile-detail{margin-top:24px;padding:18px;background:#111720;border-left:5px solid var(--red);color:#b8beca}.compat-row{margin-top:18px;display:flex;gap:8px;flex-wrap:wrap}.compat{padding:7px 10px;border-radius:999px;background:#212a35;color:#cad0dc;font-size:12px;font-weight:850}
+.gallery-toolbar{display:flex;justify-content:flex-end;gap:8px;margin:-22px 0 18px}.gallery-mode{border:2px solid #111;background:#fff;color:#111;padding:9px 14px;border-radius:999px;font-weight:950}.gallery-mode.active{background:var(--red);border-color:var(--red);color:#fff}.gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}.gallery button{padding:0;border:3px solid #111;background:#111;aspect-ratio:1024/1440;overflow:hidden;transition:.2s transform}.gallery button:hover{transform:translateY(-8px) rotate(-1deg)}.gallery img{width:100%;height:100%;object-fit:cover}
+.download-panel{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;border:3px solid #34404d;background:#111720;padding:36px;box-shadow:15px 15px 0 var(--red2)}.download-panel h2{font-size:clamp(42px,4vw,68px)}.download-panel p{color:#abb1bf}.download-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}.release-list{display:grid;gap:10px}.release-item{border:1px solid #34404d;background:#0b1016;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:15px}.release-item b{display:block}.release-item span{font-size:12px;color:#818899}.release-item em{font-style:normal;color:#3fb950;font-size:12px;font-weight:900}
+.faq{max-width:1050px;margin:auto;display:grid;gap:10px}.faq-item{border:2px solid #34404d;background:#111720}.faq-q{width:100%;text-align:left;border:0;background:transparent;color:white;padding:20px 22px;font-weight:900;display:flex;justify-content:space-between;gap:20px}.faq-q::after{content:"＋";color:var(--red);font-size:24px}.faq-item.open .faq-q::after{content:"−"}.faq-a{display:none;padding:0 22px 20px;color:#aeb4c1}.faq-item.open .faq-a{display:block}
+.footer{padding:45px 0;border-top:1px solid #26303b;color:#868d9e}.footer-inner{display:flex;justify-content:space-between;gap:25px;align-items:center}.footer .brand img{width:40px;height:40px}.footer-links{display:flex;gap:18px;font-size:13px}.footer-note{text-align:right;font-size:12px;max-width:520px}
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(4,5,8,.86);backdrop-filter:blur(10px)}.modal.open{display:flex}.modal-card{position:relative;width:min(860px,100%);max-height:88vh;overflow:auto;background:#fff;color:#111;border:5px solid #111;box-shadow:16px 16px 0 var(--red);padding:34px}.modal-close{position:absolute;right:14px;top:14px;width:42px;height:42px;border:3px solid #111;background:#fff;font-weight:1000}.modal-card h3{font-size:42px;margin:15px 50px 15px 0}.modal-card ul{padding-left:22px}.modal-card li{margin:8px 0}.lightbox img{max-height:82vh;width:auto}.lightbox .modal-card{padding:10px;width:auto;background:#0b1016}
+.backtop{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;border:2px solid #fff;background:var(--red);color:white;font-weight:1000;z-index:30;opacity:0;pointer-events:none;transition:.2s}.backtop.show{opacity:1;pointer-events:auto}
+.reveal{opacity:0;transform:translateY(24px);transition:.65s}.reveal.visible{opacity:1;transform:none}
+@media(max-width:1180px){.hero-grid{grid-template-columns:1fr}.hero-art{min-height:600px}.feature-grid{grid-template-columns:repeat(2,1fr)}.workflow{grid-template-columns:repeat(3,1fr)}.workflow::before{display:none}.gallery{grid-template-columns:repeat(4,1fr)}.demo-shell,.lab-grid,.download-panel{grid-template-columns:1fr}.nav{display:none}.menu-btn{display:block}.nav.open{display:flex;position:absolute;left:20px;right:20px;top:78px;background:#111720;border:1px solid #34404d;padding:12px;flex-direction:column;align-items:stretch}.nav.open a{text-align:center}.header-download{display:none}}
+@media(max-width:760px){.wrap{width:min(100% - 24px,var(--max))}.section{padding:72px 0}.header-inner{height:66px}.brand img{width:42px;height:42px}.hero{padding-top:45px}.hero-grid{gap:34px}.hero-art{min-height:440px}.app-frame{inset:40px 0 40px 10px}.hero-page{width:135px}.hero-page.a{height:210px;right:-20px}.hero-page.b{height:195px}.speech.hero-bubble{width:155px;font-size:14px;padding:20px 15px}.sfx{font-size:50px}.hero-stats{grid-template-columns:1fr 1fr}.hero-stat:nth-child(2){border-right:0}.hero-stat:nth-child(-n+2){border-bottom:1px solid #2a2e39}.section-head{display:block}.section-head p{margin-top:16px}.feature-grid{grid-template-columns:1fr}.tour-layout{grid-template-columns:1fr}.tour-tabs{grid-template-columns:repeat(3,1fr)}.tour-tab{padding:11px;font-size:12px;text-align:center}.tour-tab.active{transform:none}.workflow{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}.demo-info{padding:20px}.meter-row{grid-template-columns:110px 1fr 38px}.download-panel{padding:24px}.footer-inner{display:block}.footer-note{text-align:left;margin-top:20px}.footer-links{flex-wrap:wrap;margin-top:15px}.compare{aspect-ratio:1024/870}.profile-buttons{grid-template-columns:1fr}.hero-actions .btn{width:100%}.tour-caption{display:block}.tour-caption b{display:block;margin-bottom:6px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
 </head>
 <body>
-  <a class="skip" href="#content">Skip to content</a>
-  <header class="topbar" id="home">
-    <div class="wrap nav">
-      <a class="brand" href="#home" aria-label="Torii Kado home">
-        <img src="assets/images/logo.webp" alt="Torii Kado logo">
-        <span><b>Torii Kado</b><small>Manga Translator</small></span>
-      </a>
-      <button class="menu" type="button" aria-label="Toggle navigation" aria-expanded="false"><i></i><i></i><i></i></button>
-      <nav class="links" aria-label="Main navigation">
-        <a href="#features">Features</a>
-        <a href="#demo">Demo</a>
-        <a href="#screens">Screenshots</a>
-        <a href="#workflow">How It Works</a>
-        <a href="#requirements">System Requirements</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <a class="btn primary small desktop-download" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>↓ Download Now</a>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Torii Kado home"><img src="assets/app-icon.png" alt=""><span>Torii Kado<small>Local manga workstation</small></span></a>
+    <nav class="nav" id="nav" aria-label="Primary navigation">
+      <a href="#demo">Live demo</a><a href="#features">Features</a><a href="#tour">App tour</a><a href="#workflow">Workflow</a><a href="#download">Download</a>
+    </nav>
+    <a class="btn primary small header-download" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>Download v2.2.3.0</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+</header>
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Private • Local • Story-aware</span>
+      <h1>Translate manga.<br><span class="red">Keep the story.</span></h1>
+      <p class="lead">Torii Kado turns complete manga volumes into editable, reviewable translations—using local OCR, local AI, page-aware continuity and an editor designed around real manga layouts.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>↓ Download Windows setup</a>
+        <a class="btn" href="#demo">Try the interactive demo</a>
+      </div>
+      <div class="hero-note">Windows 10/11 x64 • No cloud account • Your manga stays on your computer</div>
+      <div class="hero-stats" aria-label="Release highlights">
+        <div class="hero-stat"><b>58</b><span>automated tests passed</span></div>
+        <div class="hero-stat"><b>8+</b><span>source formats</span></div>
+        <div class="hero-stat"><b>10</b><span>UI languages</span></div>
+        <div class="hero-stat"><b>0</b><span>cloud uploads required</span></div>
+      </div>
     </div>
-  </header>
-
-  <main id="content">
-    <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="wrap hero-grid">
-        <div class="hero-copy reveal">
-          <div class="eyebrow">Private, local-first manga translation</div>
-          <h1>Translate Manga<br>the <span>Right Way.</span></h1>
-          <p>Offline AI manga translation for Windows. Preserve original artwork, layout, fonts and visual tone while producing natural, story-aware English.</p>
-          <div class="hero-badges">
-            <div><strong>100% Offline</strong><small>Private & secure</small></div>
-            <div><strong>AI-Powered</strong><small>Local LLM support</small></div>
-            <div><strong>Style Preserved</strong><small>Fonts, effects & layout</small></div>
-            <div><strong>High Accuracy</strong><small>OCR & context memory</small></div>
-          </div>
-          <div class="actions">
-            <a class="btn primary" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>↓ Download Torii Kado <em>v2.2.3.0 for Windows</em></a>
-            <a class="btn ghost" href="#demo">▶ See It In Action <em>Interactive Demo</em></a>
-          </div>
-          <div class="platform">Windows 10/11 64-bit · Local processing · Source available</div>
-        </div>
-        <div class="hero-media reveal delay-1">
-          <div class="app-shell">
-            <div class="window-title"><span></span><span></span><span></span><b>Torii Kado v2.2.3.0</b></div>
-            <img src="assets/images/app-main.webp" alt="Torii Kado translating a page from Ryo wa no Darasan">
-          </div>
-          <div class="float-note n1"><b>✓</b> Clickable page self-check</div>
-          <div class="float-note n2"><b>OCR</b> Selected-area recovery</div>
-          <div class="float-note n3"><b>AI</b> Story-aware English</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="benefit-strip" aria-label="Core features">
-      <div class="wrap benefit-grid">
-        <article><span>AI</span><div><b>AI-Powered Translation</b><small>Natural local LLM output with context</small></div></article>
-        <article><span>文</span><div><b>Advanced OCR Engine</b><small>Manga OCR, 48px OCR and more</small></div></article>
-        <article><span>✦</span><div><b>Style & Layout Preservation</b><small>Fonts, effects, sizes and bubbles</small></div></article>
-        <article><span>✓</span><div><b>Page Self-Check</b><small>Detailed findings and suggestions</small></div></article>
-        <article><span>⚡</span><div><b>Fix Page</b><small>AI-assisted correction and fitting</small></div></article>
-        <article><span>▦</span><div><b>Project Management</b><small>Library, progress and retranslation</small></div></article>
-        <article><span>⌂</span><div><b>100% Offline & Private</b><small>Your manga stays on your PC</small></div></article>
-      </div>
-    </section>
-
-    <section class="section difference" id="demo">
-      <div class="wrap">
-        <header class="section-title reveal">
-          <span>Translation demonstration</span>
-          <h2>See The Difference</h2>
-          <p>The examples below use pages from the supplied <em>Ryo wa no Darasan v01</em> manga. The source and translated views always refer to the same page.</p>
-        </header>
-
-        <div class="difference-grid">
-          <aside class="check-card reveal">
-            <h3>From raw Japanese to readable English</h3>
-            <ul>
-              <li>Preserves original artwork</li>
-              <li>Maintains page layout</li>
-              <li>Restructures Japanese naturally</li>
-              <li>Uses story context memory</li>
-              <li>Supports OCR recovery</li>
-              <li>Includes manual correction tools</li>
-            </ul>
-            <a class="btn ghost compact" href="#screens">View More Screenshots ↗</a>
-          </aside>
-
-          <article class="page-preview reveal delay-1">
-            <div class="preview-head"><span>1</span> Raw Japanese · Page 00069</div>
-            <img src="assets/images/page-00069-raw.webp" alt="Original Japanese page 00069 from Ryo wa no Darasan">
-          </article>
-          <article class="page-preview reveal delay-2">
-            <div class="preview-head"><span>2</span> English Output · Page 00069</div>
-            <img src="assets/images/page-00069-en.webp" alt="English translated version of page 00069 from Ryo wa no Darasan">
-          </article>
-
-          <aside class="memory-card reveal delay-3">
-            <div class="brain">◎</div>
-            <h3>Story Context Memory</h3>
-            <p>Previous pages, recurring names, glossary terms and project guidance help keep dialogue consistent across the volume.</p>
-            <a href="#features">Explore the feature set</a>
-          </aside>
-        </div>
-
-        <div class="demo-panel reveal">
-          <div class="demo-tools">
-            <div>
-              <small>Choose page</small>
-              <div class="pills" id="pagePicker">
-                <button class="active" data-page="69">Page 00069</button>
-                <button data-page="135">Page 00135</button>
-              </div>
-            </div>
-            <div>
-              <small>Choose view</small>
-              <div class="pills" id="viewPicker">
-                <button class="active" data-view="split">Side by side</button>
-                <button data-view="raw">Japanese only</button>
-                <button data-view="translated">English only</button>
-              </div>
-            </div>
-          </div>
-          <div class="demo-pages split" id="demoPages">
-            <figure><figcaption>Original Japanese</figcaption><img id="demoRaw" src="assets/images/page-00069-raw.webp" alt="Original Japanese sample page"></figure>
-            <figure><figcaption>Translated English</figcaption><img id="demoTranslated" src="assets/images/page-00069-en.webp" alt="Translated English sample page"></figure>
-          </div>
-          <div class="demo-note">
-            <strong id="demoHeading">Page 00069 — shrine legend and ominous narration</strong>
-            <p id="demoDescription">A dark, narration-heavy page that demonstrates Japanese vertical text, large narrative boxes and readable English over high-contrast artwork.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section workflow" id="workflow">
-      <div class="wrap workflow-grid">
-        <div class="steps reveal">
-          <span class="section-kicker">How it works</span>
-          <h2>From raw volume to finished release</h2>
-          <ol>
-            <li><b>Import Manga</b><p>Add a folder, PDF, ZIP/CBZ or RAR/CBR archive and preserve its page order.</p></li>
-            <li><b>Choose Processing</b><p>Select OCR, detection, restoration, inpainting, renderer and translation settings.</p></li>
-            <li><b>Translate With Context</b><p>Use your project guide, glossary and previous pages to produce natural English.</p></li>
-            <li><b>Review & Correct</b><p>Open exact self-check findings, recover missed text and fix only what needs attention.</p></li>
-            <li><b>Export</b><p>Build clean ZIP/CBZ or PDF outputs when the project is ready.</p></li>
-          </ol>
-        </div>
-        <div class="workflow-shot reveal delay-1">
-          <div class="tool-tabs"><b>Built-In Tools</b><span>Correction Editor</span><span>Self-Check</span><span>Fix Page</span><span>OCR Settings</span></div>
-          <img src="assets/images/app-main.webp" alt="Torii Kado project workflow with translation and correction tools">
-        </div>
-      </div>
-    </section>
-
-    <section class="section screenshots" id="screens">
-      <div class="wrap">
-        <header class="section-title left reveal">
-          <span>Real application views</span>
-          <h2>Built for reviewing every page</h2>
-          <p>Open a screenshot to view the interface at full size.</p>
-        </header>
-        <div class="shots">
-          <button class="shot large reveal" data-image="assets/images/app-self-check.webp" data-caption="Page self-check with clickable findings and exact suggestions."><img src="assets/images/app-self-check.webp" alt="Torii Kado page self-check"><span>Page Self-Check</span></button>
-          <button class="shot reveal" data-image="assets/images/app-selected-area.webp" data-caption="Selected-area OCR and AI translation for source text the first pass missed."><img src="assets/images/app-selected-area.webp" alt="Torii Kado selected-area OCR"><span>Selected-Area OCR</span></button>
-          <button class="shot reveal" data-image="assets/images/app-main.webp" data-caption="Full correction editor and project workflow."><img src="assets/images/app-main.webp" alt="Torii Kado correction editor"><span>Correction Editor</span></button>
-          <button class="shot reveal" data-image="assets/images/page-00069-en.webp" data-caption="Translated example based on page 00069 from the supplied manga."><img src="assets/images/page-00069-en.webp" alt="Translated manga page 00069"><span>Translated Page 00069</span></button>
-          <button class="shot reveal" data-image="assets/images/page-00135-en.webp" data-caption="Translated example based on page 00135 from the supplied manga."><img src="assets/images/page-00135-en.webp" alt="Translated manga page 00135"><span>Translated Page 00135</span></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="section compare-section">
-      <div class="wrap compare-grid">
-        <div class="compare-copy reveal">
-          <span class="section-kicker">Correct same-page comparison</span>
-          <h2>One page. Two views.</h2>
-          <p>This slider compares the same page from the supplied manga: original Japanese on one side and the translated Torii Kado output on the other.</p>
-          <ul>
-            <li>No mismatched pages</li>
-            <li>No English shown as the source</li>
-            <li>Same composition and panel order</li>
-            <li>Useful for checking placement and readability</li>
-          </ul>
-        </div>
-        <div class="compare-box reveal delay-1">
-          <div class="compare-label"><span>Original Japanese · 00005</span><span>Translated Output · 00005</span></div>
-          <div class="compare" id="compare">
-            <img class="before" src="assets/images/compare-00005-raw.webp" alt="Original Japanese page 00005">
-            <div class="after" id="after"><img src="assets/images/compare-00005-en.webp" alt="Translated version of page 00005"></div>
-            <input id="slider" type="range" min="0" max="100" value="50" aria-label="Compare original and translated page">
-            <i id="handle">↔</i>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section features" id="features">
-      <div class="wrap">
-        <header class="section-title reveal">
-          <span>Complete feature set</span>
-          <h2>Everything Torii Kado brings together</h2>
-          <p>Import, OCR, translation, correction, diagnostics, performance controls and export in one local Windows application.</p>
-        </header>
-        <div class="feature-grid">
-          <article><span>01</span><h3>Folder & Archive Import</h3><p>Open images, folders, PDF, ZIP/CBZ and RAR/CBR volumes while preserving page order.</p></article>
-          <article><span>02</span><h3>Project Library</h3><p>Track included, skipped, translated, approved and edited pages across multiple manga projects.</p></article>
-          <article><span>03</span><h3>Multiple Text Detectors</h3><p>Default neural detection, DB ConvNeXt, comic text detection, CRAFT, Paddle and manual modes.</p></article>
-          <article><span>04</span><h3>Multiple OCR Engines</h3><p>Manga OCR, 48px OCR, 48px CTC and lighter OCR options for varied source material.</p></article>
-          <article><span>05</span><h3>Scan Restoration</h3><p>Gamma correction, orientation checks, rotated detection, upscaling and restoration controls.</p></article>
-          <article><span>06</span><h3>Inpainting Choices</h3><p>LaMa-based cleanup, alternative inpainting modes, mask expansion and cleanup control.</p></article>
-          <article><span>07</span><h3>Local LLM Translation</h3><p>Use compatible Ollama models without sending manga pages or story content to a cloud account.</p></article>
-          <article><span>08</span><h3>Natural English Localisation</h3><p>Restructure Japanese grammar and dialogue instead of preserving unnatural word order.</p></article>
-          <article><span>09</span><h3>Story Context Memory</h3><p>Use previous pages in proper story order so names, roles, places and ongoing dialogue stay consistent.</p></article>
-          <article><span>10</span><h3>Translation Guide & Glossary</h3><p>Set character names, terminology, tone, localisation rules and recurring phrase preferences.</p></article>
-          <article><span>11</span><h3>Translate Remaining</h3><p>Process only untranslated or failed included pages without unnecessarily rerunning completed pages.</p></article>
-          <article><span>12</span><h3>Retranslate Selected or All</h3><p>Target selected pages or intentionally rerun the entire included project with history backups.</p></article>
-          <article><span>13</span><h3>Immediate Page Refresh</h3><p>Show newly completed output immediately without leaving and reopening the page.</p></article>
-          <article><span>14</span><h3>Raw Backend Output</h3><p>Keep the backend render without an unwanted automatic normalisation pass changing the result.</p></article>
-          <article><span>15</span><h3>Correction Editor</h3><p>Zoom, pan, erase, resize boundaries, rewrite text, change font settings and save corrections.</p></article>
-          <article><span>16</span><h3>Selected-Area OCR</h3><p>Recover source text that the first OCR pass missed, translate it, clean the area and create a text box.</p></article>
-          <article><span>17</span><h3>Style-Preserving FIX PAGE</h3><p>Retain fonts, colours, outlines, rotation, symbols and nearby artwork wherever possible.</p></article>
-          <article><span>18</span><h3>Interactive Page Self-Check</h3><p>Expand findings, read exact suggestions and focus the affected OCR or text region.</p></article>
-          <article><span>19</span><h3>Overflow & Overlap Checks</h3><p>Detect text that is too long, too small, out of bounds, untranslated or overlapping.</p></article>
-          <article><span>20</span><h3>Hardware Compatibility</h3><p>NVIDIA, CPU and low-VRAM workflows with precision controls, offloading and automatic retry options.</p></article>
-          <article><span>21</span><h3>Multilingual Interface</h3><p>Use the application interface in supported languages and configure translation targets per project.</p></article>
-          <article><span>22</span><h3>Quiet Background Workers</h3><p>Run OCR and translation processes without distracting terminal windows flashing on screen.</p></article>
-          <article><span>23</span><h3>Model Benchmarking</h3><p>Compare installed local language models and choose the best balance of speed and translation quality.</p></article>
-          <article><span>24</span><h3>ZIP/CBZ & PDF Export</h3><p>Rebuild project outputs for reading, review, archiving or distribution after corrections are complete.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section requirements" id="requirements">
-      <div class="wrap">
-        <header class="section-title reveal"><span>System requirements</span><h2>Works across a range of Windows PCs</h2></header>
-        <div class="requirement-grid">
-          <article class="reveal"><small>Compatible</small><h3>CPU Mode</h3><b>Windows 10/11 64-bit</b><p>Modern 4-core CPU, 16 GB RAM and suitable storage for local models.</p></article>
-          <article class="recommended reveal delay-1"><small>Recommended</small><h3>NVIDIA GPU</h3><b>8–12 GB VRAM</b><p>RTX-class CUDA GPU, 32 GB RAM and SSD storage for the best balance of OCR and translation speed.</p></article>
-          <article class="reveal delay-2"><small>Low VRAM</small><h3>Hybrid Mode</h3><b>GPU + System RAM</b><p>Lower working resolutions, offloading and CPU retry support for broader compatibility.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section faq" id="faq">
-      <div class="wrap faq-grid">
-        <header class="section-title left reveal"><span>FAQ</span><h2>Know what to expect</h2><p>Torii Kado provides a serious local translation and correction workflow. Results still depend on source quality and model choice.</p></header>
-        <div class="questions reveal delay-1">
-          <details open><summary>Does Torii Kado upload my manga?</summary><p>No cloud account is required. The application is designed around local OCR, image processing and compatible local LLM translation.</p></details>
-          <details><summary>Can it fix text the OCR missed?</summary><p>Yes. Draw around the missed lettering and use selected-area OCR to translate, clean and replace that region.</p></details>
-          <details><summary>Will every page be perfect automatically?</summary><p>No translation tool can guarantee that. Torii Kado provides story memory, validation, self-checks and detailed editing tools so you can identify and correct problems efficiently.</p></details>
-          <details><summary>Can I retranslate only certain pages?</summary><p>Yes. Use Translate Remaining, Retranslate Selected or Retranslate All depending on the project.</p></details>
-          <details><summary>Which local model should I use?</summary><p>Use Benchmark Installed Models in Settings, then choose the strongest model your hardware can run at a practical speed.</p></details>
-          <details><summary>Which formats can I export?</summary><p>Torii Kado can rebuild image archive outputs such as ZIP/CBZ and PDF workflows after translation and correction.</p></details>
-        </div>
-      </div>
-    </section>
-
-    <section class="download-section">
-      <div class="wrap download-card reveal">
-        <div><span>Torii Kado v2.2.3.0</span><h2>Ready to translate your manga?</h2><p>Bring OCR, local AI translation, review, correction and export into one focused workflow.</p></div>
-        <div class="download-buttons">
-          <a class="btn primary" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>↓ Download Standalone Installer</a>
-          <a class="btn ghost" href="downloads/Torii-Kado-v2.2.3.0-Complete-Package.zip" download>Complete Package</a>
-          <div><a href="downloads/Torii-Kado-v2.2.3.0-Source.zip" download>Source Archive</a><a href="downloads/Torii-Kado-v2.2.3.0-SHA256.json" download>SHA-256 Checksums</a></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap footer-grid">
-      <div class="footer-brand"><img src="assets/images/logo.webp" alt=""><div><b>Torii Kado</b><small>Manga Translator</small><p>Local manga translation for Windows, built around privacy and correction control.</p></div></div>
-      <nav><a href="#features">Features</a><a href="#demo">Demo</a><a href="#workflow">How It Works</a><a href="#faq">FAQ</a></nav>
-      <p>Torii Kado v2.2.3.0 · Windows 10/11 64-bit</p>
+    <div class="hero-art reveal" aria-label="Torii Kado application preview">
+      <div class="sfx hero-sfx">LOCAL!</div><div class="slash"></div>
+      <div class="app-frame"><img src="assets/screenshots/02-project-preview.png" alt="Torii Kado project screen showing manga thumbnails and an English page rendered in the app"></div>
+      <div class="hero-page a"><img src="assets/manga/translated/0048.png" alt="Torii Kado rendered English page with lion beastman character"></div>
+      <div class="hero-page b"><img src="assets/manga/translated/0007.png" alt="Torii Kado rendered English page showing a maid delivering a letter"></div>
+      <div class="speech hero-bubble">OCR. Translate. Correct. Export.</div>
     </div>
-  </footer>
+  </div>
+</section>
+<div class="manga-rule"></div>
 
-  <dialog id="lightbox" class="lightbox">
-    <button type="button" aria-label="Close">×</button>
-    <img src="" alt="Expanded screenshot">
-    <p></p>
-  </dialog>
-  <button class="back-top" type="button" aria-label="Back to top">↑</button>
-  <script src="assets/script.js"></script>
+<section class="section paper-section" id="demo">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">Same page • Torii Kado renderer</span><h2>Drag from Japanese<br>to English.</h2></div><p>These pages were loaded into a real Torii Kado project, cleaned and lettered through the supplied app’s correction/editor renderer, then recaptured from the app. Switch pages or show either side by itself.</p></div>
+    <div class="demo-shell">
+      <div class="demo-stage reveal">
+        <div class="demo-toolbar" aria-label="Demo page selector">
+          <button class="chip page-chip active" data-page="0008">Character intro</button>
+          <button class="chip page-chip" data-page="0009">Story continuity</button>
+          <button class="chip page-chip" data-page="0048">Rank & names</button>
+          <span style="flex:1"></span>
+          <button class="chip view-chip active" data-view="split">Split</button>
+          <button class="chip view-chip" data-view="original">Japanese</button>
+          <button class="chip view-chip" data-view="translated">English</button>
+        </div>
+        <div class="compare" id="compare" tabindex="0" aria-label="Before and after manga translation comparison">
+          <img id="beforeImg" src="assets/manga/demo/0008-original.webp" alt="Original Japanese manga page crop">
+          <img id="afterImg" class="after-layer" src="assets/manga/demo/0008-translated.webp" alt="English translated manga page crop">
+          <div class="compare-label left">ORIGINAL JAPANESE</div><div class="compare-label right">TORII KADO OUTPUT</div>
+          <div class="compare-line" id="compareLine"></div><div class="compare-handle" id="compareHandle">↔</div>
+        </div>
+        <input class="compare-range" id="compareRange" type="range" min="0" max="100" value="50" aria-label="Comparison position">
+      </div>
+      <aside class="demo-info reveal">
+        <span class="eyebrow">Torii Kado render report</span><h3 id="demoTitle">Character introduction</h3><p id="demoCopy">The supplied app’s correction/editor pipeline rendered the English lettering while preserving the original page and editable text regions.</p>
+        <div class="scan-list">
+          <div class="scan-item"><b>01</b><div><strong>Editable regions</strong><span id="scan1">Four editable app text regions</span></div></div>
+          <div class="scan-item"><b>02</b><div><strong>App renderer</strong><span id="scan2">Rendered inside Torii Kado</span></div></div>
+          <div class="scan-item"><b>03</b><div><strong>Lettering fitted</strong><span id="scan3">0 px measured boundary overflow</span></div></div>
+          <div class="scan-item"><b>04</b><div><strong>Page check</strong><span>Same-page dimensions preserved</span></div></div>
+        </div>
+        <div class="score"><span>App render audit</span><b>PASS</b></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="section dark-grid" id="features">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">Complete manga workflow</span><h2>Not just a translator.<br>A full workstation.</h2></div><p>Import a volume, run OCR and local translation, inspect every page, repair difficult lettering, preserve story context and rebuild final ZIP/PDF exports.</p></div>
+    <div class="filter-row reveal" role="group" aria-label="Filter features">
+      <button class="filter active" data-filter="all">All</button><button class="filter" data-filter="import">Import</button><button class="filter" data-filter="translate">Translate</button><button class="filter" data-filter="edit">Correct</button><button class="filter" data-filter="quality">Quality</button><button class="filter" data-filter="system">System</button><button class="filter" data-filter="export">Export</button>
+    </div>
+    <div class="feature-grid" id="featureGrid">
+      <article class="feature reveal" data-cat="import" data-feature="imports"><span class="num">01</span><span class="tag">Import</span><h3>Complete volume intake</h3><p>Folders, images, PDF, ZIP/CBZ and RAR/CBR sources become resumable local projects.</p><button aria-label="Read more about complete volume intake"></button></article>
+      <article class="feature reveal" data-cat="translate" data-feature="ocr"><span class="num">02</span><span class="tag">OCR</span><h3>Multiple OCR pipelines</h3><p>Neural OCR, Manga OCR, CTC, orientation passes, gamma, inversion and difficult-scan controls.</p><button aria-label="Read more about OCR pipelines"></button></article>
+      <article class="feature reveal" data-cat="translate" data-feature="context"><span class="num">03</span><span class="tag">Continuity</span><h3>Story-aware translation</h3><p>Preceding pages, project notes and fixed terminology guide names, pronouns, tone and relationships.</p><button aria-label="Read more about story-aware translation"></button></article>
+      <article class="feature reveal" data-cat="edit" data-feature="editor"><span class="num">04</span><span class="tag">Correction</span><h3>Manga-first editor</h3><p>Zoom, pan, erase, add text boxes, resize boundaries, rotate text, change fonts and hold the original.</p><button aria-label="Read more about the correction editor"></button></article>
+      <article class="feature reveal" data-cat="quality" data-feature="check"><span class="num">05</span><span class="tag">Self-check</span><h3>Expandable page audit</h3><p>Find untranslated text, overflow, tiny lettering, overlap and prompt leakage, then jump to the exact region.</p><button aria-label="Read more about page auditing"></button></article>
+      <article class="feature reveal" data-cat="edit" data-feature="selection"><span class="num">06</span><span class="tag">Selected area</span><h3>Recover missed text</h3><p>Draw around missed lettering, run dedicated local OCR, clean only that rectangle and create an editable translation.</p><button aria-label="Read more about selected-area OCR"></button></article>
+      <article class="feature reveal" data-cat="system" data-feature="hardware"><span class="num">07</span><span class="tag">Hardware</span><h3>GPU, low-VRAM or CPU</h3><p>NVIDIA acceleration, system-RAM fallback and CPU-only operation support a wider range of Windows PCs.</p><button aria-label="Read more about hardware modes"></button></article>
+      <article class="feature reveal" data-cat="export" data-feature="export"><span class="num">08</span><span class="tag">Delivery</span><h3>Corrected ZIP & PDF</h3><p>Edited pages take precedence, exports are marked stale after changes, and rebuilds use the latest page state.</p><button aria-label="Read more about exports"></button></article>
+      <article class="feature reveal" data-cat="translate" data-feature="languages"><span class="num">09</span><span class="tag">Languages</span><h3>Multilingual interface</h3><p>English, Spanish, French, German, Italian, Portuguese, Russian, Japanese, Korean and Simplified Chinese.</p><button aria-label="Read more about languages"></button></article>
+      <article class="feature reveal" data-cat="quality" data-feature="raw"><span class="num">10</span><span class="tag">Preservation</span><h3>Raw result stays raw</h3><p>The automatic backend PNG is retained byte-for-byte; corrections happen only when the user chooses them.</p><button aria-label="Read more about raw output preservation"></button></article>
+      <article class="feature reveal" data-cat="translate" data-feature="batch"><span class="num">11</span><span class="tag">Batch</span><h3>Translate, retry or retranslate</h3><p>Process remaining pages, retranslate selected pages, or rebuild all while archiving previous results.</p><button aria-label="Read more about batch processing"></button></article>
+      <article class="feature reveal" data-cat="quality" data-feature="benchmark"><span class="num">12</span><span class="tag">Models</span><h3>Benchmark installed models</h3><p>Compare local Ollama models on the actual PC before choosing the main translation model.</p><button aria-label="Read more about model benchmarking"></button></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tour">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">Captured from v2.2.3.0</span><h2>Tour the actual app.</h2></div><p>Every interface screenshot below was freshly captured from the supplied package after loading the revised eight-page Torii Kado project.</p></div>
+    <div class="tour-layout reveal">
+      <div class="tour-tabs" role="tablist">
+        <button class="tour-tab active" data-shot="01-library.png" data-title="Manga Library" data-caption="Create projects, resume volumes and see approval, edit and failure counts at a glance.">Library</button>
+        <button class="tour-tab" data-shot="02-project-preview.png" data-title="Project Preview" data-caption="Browse thumbnails, filter page states, translate remaining pages and compare the selected output.">Page preview</button>
+        <button class="tour-tab" data-shot="03-correction-editor.png" data-title="Correction Editor" data-caption="Edit boundaries and text boxes, run CHECK PAGE or FIX PAGE, zoom, pan and save corrected pages.">Editor</button>
+        <button class="tour-tab" data-shot="04-settings.png" data-title="Local AI Settings" data-caption="Choose language, translation model, quality profile, OCR settings, hardware mode and processing controls.">Settings</button>
+        <button class="tour-tab" data-shot="05-text-translator.png" data-title="Local Text Translator" data-caption="Translate copied dialogue or notes using the same private Ollama model and target language.">Text translator</button>
+        <button class="tour-tab" data-shot="06-diagnostics.png" data-title="Diagnostics" data-caption="Run preflight checks, inspect local paths and diagnose model or backend configuration before processing.">Diagnostics</button>
+      </div>
+      <div class="tour-frame"><button id="tourImageButton" style="all:unset;display:block;cursor:zoom-in;width:100%" aria-label="Open screenshot"><img id="tourImage" src="assets/screenshots/01-library.png" alt="Torii Kado Manga Library screen"></button><div class="tour-caption"><b id="tourTitle">Manga Library</b><p id="tourCaption">Create projects, resume volumes and see approval, edit and failure counts at a glance.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section paper-section" id="workflow">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">One volume • One guided process</span><h2>From raw pages<br>to finished export.</h2></div><p>Press the simulation button to step through the workflow. The real app can process a complete volume while leaving difficult pages available for review.</p></div>
+    <div class="workflow" id="workflowSteps">
+      <article class="step"><div class="step-no">1</div><h3>Import</h3><p>Choose a folder, image set, PDF, ZIP/CBZ or RAR/CBR. Torii Kado builds thumbnails and a resumable project.</p><div class="status">Waiting</div></article>
+      <article class="step"><div class="step-no">2</div><h3>Detect & OCR</h3><p>Use a tested processing preset or fine-tune detector, OCR, orientation, thresholds, restoration and inpainting.</p><div class="status">Waiting</div></article>
+      <article class="step"><div class="step-no">3</div><h3>Translate</h3><p>Local AI receives the page plus earlier story context, glossary terms and natural-language guidance.</p><div class="status">Waiting</div></article>
+      <article class="step"><div class="step-no">4</div><h3>Review & fix</h3><p>Check overflow, overlap and untranslated text. Edit boxes manually or run a targeted FIX PAGE pass.</p><div class="status">Waiting</div></article>
+      <article class="step"><div class="step-no">5</div><h3>Export</h3><p>Rebuild ZIP and PDF from the current corrected pages. Original manga files remain untouched.</p><div class="status">Waiting</div></article>
+    </div>
+    <div class="workflow-actions"><button class="btn primary" id="runWorkflow">▶ Simulate a volume</button></div><div class="progress-track"><div class="progress-fill" id="workflowProgress"></div></div>
+  </div>
+</section>
+
+<section class="section dark-grid" id="lab">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">Interactive configuration</span><h2>Pick a quality profile.</h2></div><p>Torii Kado includes four validated starting presets. Select one to see how the app changes detection, OCR, memory and speed priorities.</p></div>
+    <div class="lab-grid reveal">
+      <div class="lab-control">
+        <h3>Processing preset</h3>
+        <div class="profile-buttons" id="profileButtons">
+          <button class="profile-btn active" data-profile="balanced">Balanced</button><button class="profile-btn" data-profile="manga">Japanese manga accuracy</button><button class="profile-btn" data-profile="difficult">Difficult scan</button><button class="profile-btn" data-profile="fast">Fast / low memory</button>
+        </div>
+        <label for="hardware">Hardware mode</label><select id="hardware"><option>Automatic</option><option>NVIDIA GPU</option><option>Low VRAM / system RAM</option><option>CPU only</option></select>
+        <label for="language">Interface & target language</label><select id="language"><option>English</option><option>Español</option><option>Français</option><option>Deutsch</option><option>Italiano</option><option>Português (Brasil)</option><option>Русский</option><option>日本語</option><option>한국어</option><option>简体中文</option></select>
+      </div>
+      <div class="lab-output"><h3 id="profileTitle">Balanced</h3><div class="meter">
+        <div class="meter-row"><span>Recognition accuracy</span><div class="bar"><i id="mAccuracy" style="width:82%"></i></div><b id="vAccuracy">82</b></div>
+        <div class="meter-row"><span>Low-memory suitability</span><div class="bar"><i id="mMemory" style="width:66%"></i></div><b id="vMemory">66</b></div>
+        <div class="meter-row"><span>Processing speed</span><div class="bar"><i id="mSpeed" style="width:68%"></i></div><b id="vSpeed">68</b></div>
+        <div class="meter-row"><span>Difficult-page rescue</span><div class="bar"><i id="mRescue" style="width:72%"></i></div><b id="vRescue">72</b></div>
+      </div><div class="profile-detail" id="profileDetail">A practical default using the standard neural detector, 48 px OCR, automatic orientation and conservative image processing.</div><div class="compat-row"><span class="compat">Local Ollama model</span><span class="compat">No cloud account</span><span class="compat">Windows 10/11 x64</span><span class="compat" id="hardwareBadge">Automatic hardware choice</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section paper-section" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal"><div><span class="eyebrow">Supplied demo volume</span><h2>Eight pages.<br>One Torii Kado project.</h2></div><p>Browse all eight app-rendered English pages, switch the gallery back to the original Japanese artwork, and open any page at full size.</p></div>
+    <div class="gallery-toolbar reveal" role="group" aria-label="Manga gallery display">
+      <button class="gallery-mode active" data-gallery-mode="translated">Torii Kado output</button>
+      <button class="gallery-mode" data-gallery-mode="original">Original Japanese</button>
+    </div>
+    <div class="gallery reveal">
+      <button data-page="0007" data-full="assets/manga/translated/0007.png" aria-label="Open Torii Kado output page 0007"><img src="assets/manga/translated/0007.png" alt="Torii Kado rendered English manga page 0007"></button>
+      <button data-page="0008" data-full="assets/manga/translated/0008.png" aria-label="Open Torii Kado output page 0008"><img src="assets/manga/translated/0008.png" alt="Torii Kado rendered English manga page 0008"></button>
+      <button data-page="0009" data-full="assets/manga/translated/0009.png" aria-label="Open Torii Kado output page 0009"><img src="assets/manga/translated/0009.png" alt="Torii Kado rendered English manga page 0009"></button>
+      <button data-page="0010" data-full="assets/manga/translated/0010.png" aria-label="Open Torii Kado output page 0010"><img src="assets/manga/translated/0010.png" alt="Torii Kado rendered English manga page 0010"></button>
+      <button data-page="0047" data-full="assets/manga/translated/0047.png" aria-label="Open Torii Kado output page 0047"><img src="assets/manga/translated/0047.png" alt="Torii Kado rendered English manga page 0047"></button>
+      <button data-page="0048" data-full="assets/manga/translated/0048.png" aria-label="Open Torii Kado output page 0048"><img src="assets/manga/translated/0048.png" alt="Torii Kado rendered English manga page 0048"></button>
+      <button data-page="0049" data-full="assets/manga/translated/0049.png" aria-label="Open Torii Kado output page 0049"><img src="assets/manga/translated/0049.png" alt="Torii Kado rendered English manga page 0049"></button>
+      <button data-page="0050" data-full="assets/manga/translated/0050.png" aria-label="Open Torii Kado output page 0050"><img src="assets/manga/translated/0050.png" alt="Torii Kado rendered English manga page 0050"></button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <div class="wrap">
+    <div class="download-panel reveal">
+      <div><span class="eyebrow">Current release</span><h2>Torii Kado<br><span class="red">v2.2.3.0</span></h2><p>Install the Windows application, download the complete package, or inspect the source archive. This release also suppresses flashing terminal windows during OCR, selected-area translation and backend helper work.</p><div class="download-actions"><a class="btn primary" href="downloads/Torii-Kado-v2.2.3.0-Setup.exe" download>↓ Windows setup</a><a class="btn" href="downloads/Torii-Kado-v2.2.3.0-Complete-Package.zip" download>Complete package</a><a class="btn ghost" href="downloads/Torii-Kado-v2.2.3.0-Source.zip" download>Source archive</a></div></div>
+      <div class="release-list">
+        <div class="release-item"><div><b>Windows setup</b><span>Guided installer for Windows 10/11 x64</span></div><em>9.6 MB</em></div>
+        <div class="release-item"><div><b>Complete package</b><span>Installer, application files, source and signing notes</span></div><em>29 MB</em></div>
+        <div class="release-item"><div><b>Source archive</b><span>Python application plus Go installer/helper sources</span></div><em>14.7 MB</em></div>
+        <div class="release-item"><div><b>Checksums</b><span>SHA-256 values for every download</span></div><a href="downloads/SHA256SUMS.txt" style="color:#58a6ff;font-weight:900">View</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+  <div class="wrap"><div class="section-head reveal"><div><span class="eyebrow">Questions</span><h2>Before you install.</h2></div></div>
+    <div class="faq reveal">
+      <div class="faq-item open"><button class="faq-q">Does Torii Kado upload my manga?</button><div class="faq-a">No. The application is local-first. OCR, image processing and translation are designed to run on the computer using the configured local backend and Ollama model.</div></div>
+      <div class="faq-item"><button class="faq-q">Which source formats can it import?</button><div class="faq-a">Folders, individual images, PDF, ZIP/CBZ and RAR/CBR volumes are supported. Imported source files remain untouched.</div></div>
+      <div class="faq-item"><button class="faq-q">Does it work without an NVIDIA GPU?</button><div class="faq-a">Yes. Settings include automatic hardware selection, low-VRAM/system-RAM fallback and CPU-only modes. Performance depends on the chosen OCR and local language models.</div></div>
+      <div class="faq-item"><button class="faq-q">Can I correct text after translation?</button><div class="faq-a">Yes. The correction editor supports editable text boxes, fonts, sizes, alignment, rotation, irregular boundaries, erase tools, zoom/pan, page checks and manual FIX PAGE workflows.</div></div>
+      <div class="faq-item"><button class="faq-q">Will retranslating overwrite my edits?</button><div class="faq-a">Before explicit retranslation, the app archives previous automatic renders, corrected renders and editable box metadata in the project history.</div></div>
+      <div class="faq-item"><button class="faq-q">Are the screenshots on this site real?</button><div class="faq-a">Yes. The interface captures come from the supplied v2.2.3.0 application with the revised project loaded. The English demo pages were rendered through Torii Kado’s correction/editor lettering pipeline. The separate automatic OCR + Ollama stage requires its Windows backend and local model, which were not available in this Linux build environment.</div></div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer"><div class="wrap footer-inner"><div><a class="brand" href="#top"><img src="assets/app-icon.png" alt=""><span>Torii Kado<small>v2.2.3.0</small></span></a><div class="footer-links"><a href="#demo">Demo</a><a href="#features">Features</a><a href="#download">Downloads</a><a href="downloads/SHA256SUMS.txt">Checksums</a></div></div><div class="footer-note">Local-first manga translation and correction workstation for Windows 10/11 x64. Demo lettering was rendered in Torii Kado’s project/editor pipeline; automatic OCR + Ollama still runs locally on the installed Windows system.</div></div></footer>
+
+<div class="modal" id="featureModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" aria-label="Close dialog">×</button><span class="eyebrow">Torii Kado capability</span><h3 id="modalTitle">Feature</h3><div id="modalBody"></div></div></div>
+<div class="modal lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview"><div class="modal-card"><button class="modal-close" aria-label="Close image">×</button><img id="lightboxImg" src="assets/app-icon.png" alt="Expanded preview"></div></div>
+<button class="backtop" id="backTop" aria-label="Back to top">↑</button>
+<script>
+const $=(s,p=document)=>p.querySelector(s), $$=(s,p=document)=>[...p.querySelectorAll(s)];
+const nav=$('#nav'), menuBtn=$('#menuBtn'); menuBtn.addEventListener('click',()=>{nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',nav.classList.contains('open'))}); $$('#nav a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const pages={
+  '0008':{title:'Character introduction',copy:'The matching source page was loaded into Torii Kado and its title and narration regions were rendered by the app’s editable lettering pipeline.',s1:'Four editable app text regions',s2:'Matching 1024 px source page',s3:'0 px measured boundary overflow'},
+  '0009':{title:'New arrivals',copy:'Torii Kado keeps every English region attached to the original panel while preserving the full-page artwork and project metadata.',s1:'Three editable app text regions',s2:'Page reopened in Project Preview',s3:'0 px measured boundary overflow'},
+  '0048':{title:'Ranks and terminology',copy:'The page was cleaned and lettered inside the Torii Kado project/editor path so title cards and speech regions remain independently editable.',s1:'Four editable app text regions',s2:'Original and output stay aligned',s3:'0 px measured boundary overflow'}
+};
+let currentPage='0008', view='split'; const before=$('#beforeImg'),after=$('#afterImg'),range=$('#compareRange'),line=$('#compareLine'),handle=$('#compareHandle');
+function setCompare(v){v=Math.max(0,Math.min(100,Number(v)));range.value=v;after.style.clipPath=`inset(0 0 0 ${v}%)`;line.style.left=v+'%';handle.style.left=v+'%';}
+function setView(v){view=v; $$('.view-chip').forEach(b=>b.classList.toggle('active',b.dataset.view===v)); if(v==='split'){before.style.display='block';after.style.display='block';line.style.display=handle.style.display='grid';range.disabled=false;setCompare(range.value)} else if(v==='original'){before.style.display='block';after.style.display='none';line.style.display=handle.style.display='none';range.disabled=true}else{before.style.display='none';after.style.display='block';after.style.clipPath='none';line.style.display=handle.style.display='none';range.disabled=true}}
+range.addEventListener('input',e=>setCompare(e.target.value));
+let drag=false; const compare=$('#compare'); function pointer(e){const r=compare.getBoundingClientRect();setCompare(((e.clientX-r.left)/r.width)*100)} compare.addEventListener('pointerdown',e=>{drag=true;compare.setPointerCapture(e.pointerId);pointer(e)});compare.addEventListener('pointermove',e=>drag&&pointer(e));compare.addEventListener('pointerup',()=>drag=false);compare.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')setCompare(Number(range.value)-3);if(e.key==='ArrowRight')setCompare(Number(range.value)+3)});
+$$('.page-chip').forEach(b=>b.addEventListener('click',()=>{currentPage=b.dataset.page;$$('.page-chip').forEach(x=>x.classList.toggle('active',x===b));before.src=`assets/manga/demo/${currentPage}-original.webp`;after.src=`assets/manga/demo/${currentPage}-translated.webp`;const p=pages[currentPage];$('#demoTitle').textContent=p.title;$('#demoCopy').textContent=p.copy;$('#scan1').textContent=p.s1;$('#scan2').textContent=p.s2;$('#scan3').textContent=p.s3;setView(view)})); $$('.view-chip').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));
+$$('.filter').forEach(b=>b.addEventListener('click',()=>{$$('.filter').forEach(x=>x.classList.toggle('active',x===b));const f=b.dataset.filter;$$('.feature').forEach(card=>card.hidden=f!=='all'&&card.dataset.cat!==f)}));
+const featureData={
+imports:['Complete volume intake','Import folders, images, PDF, ZIP/CBZ and RAR/CBR volumes. Torii Kado prepares thumbnails and creates a persistent project without modifying the original source.'],
+ocr:['Multiple OCR pipelines','Choose the default neural detector, DB ConvNeXt, comic-text detection, CRAFT, Paddle or no automatic detector. OCR choices include 48 px neural recognition, Japanese Manga OCR, CTC and a lightweight 32 px model.'],
+context:['Story-aware translation','Story memory is indexed by physical page order and supplies only earlier pages. Project notes and a fixed-name glossary help preserve relationships, pronouns, recurring terminology and character voice.'],
+editor:['Manga-first correction editor','Use erase tools, selection actions, editable text boxes, irregular boundary anchors, rotation, fonts, fill/stroke colours, zoom, pan, undo, autosave and hold-original comparison.'],
+check:['Expandable page audit','CHECK PAGE can flag untranslated CJK, leaked instructions, overflow, small lettering and overlap. Findings expand into exact suggestions and can focus the related page region.'],
+selection:['Selected-area OCR','When batch detection misses lettering, draw around it. Torii Kado runs a dedicated OCR pass, translates with story context, cleans only the chosen rectangle and creates an editable box in one undoable edit.'],
+hardware:['GPU, low-VRAM or CPU','Use automatic hardware selection, NVIDIA acceleration, low-VRAM/system-RAM fallback or CPU-only operation. Fast / low memory processing is available for constrained systems.'],
+export:['Corrected ZIP and PDF','Corrected pages take precedence over automatic results. Any edit marks existing archives stale, and Rebuild ZIP and PDF creates fresh exports from the current project state.'],
+languages:['Multilingual interface','The UI and target-language guidance support English, Spanish, French, German, Italian, Brazilian Portuguese, Russian, Japanese, Korean and Simplified Chinese.'],
+raw:['Raw output preservation','The backend-rendered automatic PNG remains the final automatic result byte-for-byte. Torii Kado does not silently normalise, reconstruct or re-letter the page after translation.'],
+batch:['Batch translation and retranslation','Translate only remaining failed or untranslated pages, retranslate a selected set, or retranslate every included page. Previous renders and editable metadata are archived first.'],
+benchmark:['Installed model benchmark','Test locally installed Ollama models on the user’s own computer and save a report before choosing the main translator or optional reviewer model.']};
+const featureModal=$('#featureModal');$$('.feature button').forEach(btn=>btn.addEventListener('click',()=>{const [t,d]=featureData[btn.parentElement.dataset.feature];$('#modalTitle').textContent=t;$('#modalBody').innerHTML=`<p>${d}</p><ul><li>Runs inside the local project workflow.</li><li>Designed to remain reviewable rather than silently altering pages.</li><li>Available in the supplied v2.2.3.0 feature matrix.</li></ul>`;featureModal.classList.add('open')}));
+function closeModal(m){m.classList.remove('open')} $$('.modal-close').forEach(b=>b.addEventListener('click',()=>closeModal(b.closest('.modal'))));$$('.modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m)}));document.addEventListener('keydown',e=>{if(e.key==='Escape')$$('.modal.open').forEach(closeModal)});
+const shotAlt={"01-library.png":"Torii Kado Manga Library screen","02-project-preview.png":"Torii Kado project preview screen","03-correction-editor.png":"Torii Kado correction editor screen","04-settings.png":"Torii Kado local AI settings screen","05-text-translator.png":"Torii Kado local text translator screen","06-diagnostics.png":"Torii Kado diagnostics screen"};
+$$('.tour-tab').forEach(b=>b.addEventListener('click',()=>{$$('.tour-tab').forEach(x=>x.classList.toggle('active',x===b));$('#tourImage').src='assets/screenshots/'+b.dataset.shot;$('#tourImage').alt=shotAlt[b.dataset.shot];$('#tourTitle').textContent=b.dataset.title;$('#tourCaption').textContent=b.dataset.caption}));
+$$('.gallery-mode').forEach(btn=>btn.addEventListener('click',()=>{const mode=btn.dataset.galleryMode;$$('.gallery-mode').forEach(x=>x.classList.toggle('active',x===btn));$$('.gallery button').forEach(card=>{const page=card.dataset.page;const translated=mode==='translated';const src=translated?`assets/manga/translated/${page}.png`:`assets/manga/original/${page}.jpg`;card.dataset.full=src;card.setAttribute('aria-label',`${translated?'Open Torii Kado output':'Open original Japanese'} page ${page}`);const img=card.querySelector('img');img.src=src;img.alt=`${translated?'Torii Kado rendered English':'Original Japanese'} manga page ${page}`})}));
+const lightbox=$('#lightbox'),lightImg=$('#lightboxImg');function openLight(src,alt='Expanded preview'){lightImg.src=src;lightImg.alt=alt;lightbox.classList.add('open')}$('#tourImageButton').addEventListener('click',()=>openLight($('#tourImage').src,$('#tourImage').alt));$$('.gallery button').forEach(b=>b.addEventListener('click',()=>openLight(b.dataset.full,b.querySelector('img').alt)));
+let workflowTimer=null;$('#runWorkflow').addEventListener('click',()=>{clearInterval(workflowTimer);const steps=$$('#workflowSteps .step'),fill=$('#workflowProgress');steps.forEach(s=>{s.classList.remove('done','active');$('.status',s).textContent='Waiting'});let i=0;fill.style.width='0%';$('#runWorkflow').textContent='Processing…';function tick(){steps.forEach((s,n)=>s.classList.toggle('active',n===i));if(i>0){steps[i-1].classList.remove('active');steps[i-1].classList.add('done');$('.status',steps[i-1]).textContent='Complete'}if(i<steps.length){$('.status',steps[i]).textContent='Running';fill.style.width=((i+.45)/steps.length*100)+'%';i++}else{steps.at(-1).classList.remove('active');steps.at(-1).classList.add('done');$('.status',steps.at(-1)).textContent='Complete';fill.style.width='100%';$('#runWorkflow').textContent='✓ Volume ready';clearInterval(workflowTimer)}}tick();workflowTimer=setInterval(tick,850)});
+const profiles={balanced:{title:'Balanced',a:82,m:66,s:68,r:72,detail:'A practical default using the standard neural detector, 48 px OCR, automatic orientation and conservative image processing.'},manga:{title:'Japanese manga accuracy',a:95,m:48,s:43,r:88,detail:'Prioritises Japanese Manga OCR, multi-line region merging and high-resolution detection for vertical text and furigana.'},difficult:{title:'Difficult scan',a:86,m:38,s:31,r:96,detail:'Adds aggressive rescue settings for faint, rotated, inverted or damaged lettering and difficult page backgrounds.'},fast:{title:'Fast / low memory',a:68,m:96,s:94,r:45,detail:'Uses lighter OCR and processing settings for CPU-only, low-VRAM or memory-constrained systems.'}};
+function profile(k){const p=profiles[k];$('#profileTitle').textContent=p.title;for(const [id,v] of [['Accuracy',p.a],['Memory',p.m],['Speed',p.s],['Rescue',p.r]]){$('#m'+id).style.width=v+'%';$('#v'+id).textContent=v}$('#profileDetail').textContent=p.detail}$$('.profile-btn').forEach(b=>b.addEventListener('click',()=>{$$('.profile-btn').forEach(x=>x.classList.toggle('active',x===b));profile(b.dataset.profile)}));$('#hardware').addEventListener('change',e=>$('#hardwareBadge').textContent=e.target.value==='Automatic'?'Automatic hardware choice':e.target.value);
+$$('.faq-q').forEach(q=>q.addEventListener('click',()=>q.parentElement.classList.toggle('open')));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});$$('.reveal').forEach(x=>io.observe(x));
+const back=$('#backTop');window.addEventListener('scroll',()=>back.classList.toggle('show',scrollY>700),{passive:true});back.addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));
+setCompare(50);
+</script>
 </body>
 </html>

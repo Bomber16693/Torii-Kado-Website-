@@ -1,0 +1,238 @@
+[
+  {
+    "page": "0007.jpg",
+    "box_count": 7,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 29,
+        "line_count": 2,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 6,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 35,
+        "line_count": 2,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 3,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 27,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 21,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 30,
+        "line_count": 5,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0008.jpg",
+    "box_count": 4,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 39,
+        "line_count": 3,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 25,
+        "line_count": 8,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 26,
+        "line_count": 6,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 35,
+        "line_count": 3,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0009.jpg",
+    "box_count": 3,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 32,
+        "line_count": 5,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 39,
+        "line_count": 3,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 29,
+        "line_count": 3,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0010.jpg",
+    "box_count": 5,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 28,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 34,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 27,
+        "line_count": 2,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 30,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 29,
+        "line_count": 6,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0047.jpg",
+    "box_count": 6,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 34,
+        "line_count": 6,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 26,
+        "line_count": 9,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 35,
+        "line_count": 2,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 25,
+        "line_count": 6,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 3,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0048.jpg",
+    "box_count": 4,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 37,
+        "line_count": 3,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 27,
+        "line_count": 5,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 29,
+        "line_count": 5,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 3,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0049.jpg",
+    "box_count": 5,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 28,
+        "line_count": 11,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 31,
+        "line_count": 5,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 35,
+        "line_count": 3,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 34,
+        "line_count": 4,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 33,
+        "line_count": 1,
+        "overflow": 0
+      }
+    ]
+  },
+  {
+    "page": "0050.jpg",
+    "box_count": 2,
+    "max_overflow": 0,
+    "metrics": [
+      {
+        "used_font_size": 25,
+        "line_count": 7,
+        "overflow": 0
+      },
+      {
+        "used_font_size": 25,
+        "line_count": 9,
+        "overflow": 0
+      }
+    ]
+  }
+]

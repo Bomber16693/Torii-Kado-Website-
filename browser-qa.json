@@ -1,0 +1,58 @@
+{
+  "local_references_checked": 25,
+  "missing_references": [],
+  "javascript_syntax_ok": true,
+  "javascript_syntax_output": "",
+  "desktop": {
+    "http_status": 200,
+    "console_errors": [],
+    "page_errors": [],
+    "failed_requests": [],
+    "horizontal_overflow_px": 0,
+    "document_height_px": 8925,
+    "broken_images": [],
+    "interactions": [
+      "comparison page changed",
+      "translated-only mode",
+      "split mode",
+      "comparison slider",
+      "feature filter",
+      "feature modal",
+      "app tour tab",
+      "workflow simulation",
+      "quality profile",
+      "hardware selector",
+      "gallery original mode",
+      "gallery app-output mode",
+      "faq accordion"
+    ],
+    "visible_feature_count_after_edit_filter": 2
+  },
+  "mobile": {
+    "http_status": 200,
+    "console_errors": [],
+    "page_errors": [],
+    "failed_requests": [],
+    "horizontal_overflow_px": 0,
+    "document_height_px": 15007,
+    "broken_images": [],
+    "interactions": [
+      "mobile menu opened",
+      "mobile menu closed",
+      "comparison page changed",
+      "translated-only mode",
+      "split mode",
+      "comparison slider",
+      "feature filter",
+      "feature modal",
+      "app tour tab",
+      "workflow simulation",
+      "quality profile",
+      "hardware selector",
+      "gallery original mode",
+      "gallery app-output mode",
+      "faq accordion"
+    ],
+    "visible_feature_count_after_edit_filter": 2
+  }
+}

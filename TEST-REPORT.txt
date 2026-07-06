@@ -1,33 +1,40 @@
-Torii Kado Website v1.2 — Layout and Slider Test Report
-=======================================================
+TORII KADO WEBSITE — REVISED BUILD TEST REPORT
+================================================
 
-Completed fixes
+Build purpose
+-------------
+This revision replaces the earlier manually painted web mock-ups with pages loaded into a real Torii Kado project and rendered through the supplied app's correction/editor lettering pipeline. All application screenshots were recaptured with that project loaded. The website palette now follows the supplied app theme.
+
+Verified assets
 ---------------
-- Fixed workflow step descriptions that were being placed in the 40 px number column.
-- Expanded the desktop content container to 1680 px maximum width.
-- Added minimum and maximum grid sizing to prevent collapsed columns.
-- Replaced the slider images with matching 1350 × 1920 full-page files.
-- Changed comparison image rendering from object-fit: cover to object-fit: contain.
-- Changed the translated overlay from a resizing container to a full-size clipped layer.
-- Corrected the slider direction: Japanese is on the left and English is on the right.
+- 8 source manga pages included.
+- 8 matching English pages rendered through Torii Kado's project/editor renderer.
+- 36 editable text regions rendered.
+- Maximum measured text-boundary overflow: 0 px.
+- 6 screenshots freshly captured from the supplied Qt application.
+- Interactive comparison crops preserve identical dimensions for source/output pairs.
 
-Automated checks
-----------------
-- JavaScript syntax: passed.
-- Missing local references: 0.
-- Horizontal overflow at 1920 × 1080: 0 px.
-- Horizontal overflow at 2880 × 1600: 0 px.
-- Horizontal overflow at 1366 × 900: 0 px.
-- Horizontal overflow at 390 × 844: 0 px.
-- Workflow text width at 1920 px: 580 px per description.
-- Slider source dimensions: 1350 × 1920.
-- Slider translated dimensions: 1350 × 1920.
-- Slider display mode: contain on both layers.
-- Slider clip interaction: passed.
-- Demo page selection and view controls: passed.
+Theme
+-----
+Website colours now use the app palette:
+- Background: #0d1117
+- Sidebar/panels: #111720
+- Primary: #1f6feb
+- Hover/focus: #388bfd / #58a6ff
+- Active navigation: #243347
+- Controls/borders: #212a35 / #34404d
+- Text/muted: #e6edf3 / #8b949e
 
-Rendered QA files
------------------
-- WEBSITE-PREVIEW.png
-- QA-WORKFLOW-1920.png
-- QA-SLIDER-1920.png
+Important execution boundary
+----------------------------
+The supplied application delegates fully automatic OCR, inpainting and model translation to a separate manga-image-translator backend and a local Ollama model. Those Windows/local-model dependencies were not available in this Linux build environment. Therefore this report does not claim that the automatic OCR + Ollama stage ran here. The revised demo pages were cleaned, boxed and lettered through Torii Kado's actual project/editor rendering code and then displayed in the real app.
+
+Static checks
+-------------
+- 25 static local references checked; 0 missing.
+- JavaScript syntax passed Node.js validation.
+- Desktop browser run: 0 console errors, 0 failed requests, 0 broken images and 0 px horizontal overflow.
+- Mobile browser run: 0 console errors, 0 failed requests, 0 broken images and 0 px horizontal overflow.
+- Comparison modes, slider, feature filters/modal, app tour, workflow, quality profile, hardware selector, gallery modes and FAQ were exercised on desktop and mobile.
+- Desktop and mobile preview images generated.
+- ZIP integrity and SHA-256 manifest generated.

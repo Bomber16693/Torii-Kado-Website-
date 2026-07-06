@@ -1,0 +1,3 @@
+Revised app capture: eight-page project loaded; page preview, correction editor, settings, text translator and diagnostics screens captured.
+Renderer metrics: 36 editable regions, 0 px maximum measured boundary overflow.
+Automatic OCR + Ollama model translation not executed in this Linux environment because the separate Windows backend/model were unavailable.
